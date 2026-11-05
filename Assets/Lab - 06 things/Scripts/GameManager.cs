@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI liveScoreText;
     public int coinsToWin = 20;
+    public TextMeshProUGUI levelText;
+    public string levelName = "Level 1";
     public bool enableBonus = true;
     public TextMeshProUGUI timerText;
     public float timeLimit = 60f;
@@ -32,6 +34,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         restartPanel.SetActive(false); // hide panel at start
         redCoinScore = Random.Range(1, 11); // gives a number from 1 to 10
+        levelText.text = levelName;
     }
     void Update()
     {
