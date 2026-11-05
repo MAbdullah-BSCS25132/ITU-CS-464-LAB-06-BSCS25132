@@ -105,8 +105,10 @@ public class GameManager : MonoBehaviour
         bonusText.text = "BonusCoins: " + bonusCollected + "/" + blueCoinCount;
     }
     int playerScore = 0;
-    void EndGame(string message)
+    public void EndGame(string message)
     {
+        if (gameOver) return; // stops it from running twice
+
         gameOver = true;
         scoreText.text = message + "\nTotal Score: " + playerScore;
         restartPanel.SetActive(true);
