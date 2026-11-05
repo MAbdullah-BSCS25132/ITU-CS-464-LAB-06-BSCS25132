@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI liveScoreText;
     public int coinsToWin = 20;
+    public GameObject nextLevelButton;
     public TextMeshProUGUI levelText;
     public string levelName = "Level 1";
     public bool enableBonus = true;
@@ -65,7 +66,7 @@ public class GameManager : MonoBehaviour
 
         if (score >= coinsToWin)
         {
-            EndGame("You Win!");
+            EndGame("You Win!", true);
         }
     }
     void SpawnRedCoin()
@@ -105,14 +106,26 @@ public class GameManager : MonoBehaviour
         bonusText.text = "BonusCoins: " + bonusCollected + "/" + blueCoinCount;
     }
     int playerScore = 0;
-    public void EndGame(string message)
+    public void EndGame(string message, bool won = false)
     {
-        if (gameOver) return; // stops it from running twice
+        if (gameOver) return;
 
         gameOver = true;
         scoreText.text = message + "\nTotal Score: " + playerScore;
+        nextLevelButton.SetActive(won); // show Next Level only if the player won
         restartPanel.SetActive(true);
         Time.timeScale = 0f;
+    }
+    public void LoadNextLevel()
+    {
+        Time.timeScale = 1f; // un-pause
+
+        int next = SceneManager.GetActiveScene().buildIndex + 1;
+
+        if (next >= SceneManager.sceneCountInBuildSettings)
+            next = 0; // after the last level, go back to Level 1
+
+        SceneManager.LoadScene(next);
     }
     public void RestartGame()
     {
