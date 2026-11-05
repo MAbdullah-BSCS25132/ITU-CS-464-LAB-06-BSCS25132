@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI liveScoreText;
     public int coinsToWin = 20;
+    public bool enableBonus = true;
     public TextMeshProUGUI timerText;
     public float timeLimit = 60f;
     float timeLeft;
@@ -54,7 +55,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Score: " + score);
         liveScoreText.text = "Score: " + score;
 
-        if (!redCoinSpawned && score == redCoinScore)
+        if (enableBonus && !redCoinSpawned && score == redCoinScore)
         {
             SpawnRedCoin();
         }
